@@ -11,7 +11,7 @@ export const routes: Routes = [
   {
     path: '',
     pathMatch: 'full',
-    redirectTo: 'dev-games'
+    redirectTo: 'home'
   },
   {
     path: 'developer-games',
