@@ -1,0 +1,293 @@
+<div class="algorithm-runner-container" [class.dark-mode]="isDarkMode" [class.light-mode]="!isDarkMode">
+  <!-- Username Prompt -->
+  <div class="username-prompt" *ngIf="showUsernamePrompt">
+    <h2>Welcome to Algorithm Runner!</h2>
+    <p>Please enter your name to track your progress and scores:</p>
+    <div class="input-group">
+      <input type="text" [(ngModel)]="username" placeholder="Your name">
+      <button (click)="saveUsername()">Continue</button>
+    </div>
+  </div>
+
+  <!-- Game Content -->
+  <div class="game-content" *ngIf="!showUsernamePrompt">
+    <!-- Game Header -->
+    <div class="game-header">
+      <h1>Algorithm Runner</h1>
+      <div class="filters">
+        <div class="filter-group">
+          <label>Language:</label>
+          <div class="button-group">
+            <button *ngFor="let lang of availableLanguages" 
+                    [class.active]="selectedLanguage === lang"
+                    (click)="selectLanguage(lang)">
+              {{lang}}
+            </button>
+          </div>
+        </div>
+        <div class="filter-group">
+          <label>Difficulty:</label>
+          <div class="button-group">
+            <button *ngFor="let diff of availableDifficulties" 
+                    [class.active]="selectedDifficulty === diff"
+                    (click)="selectDifficulty(diff)">
+              {{diff}}
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- No Challenges Available Message -->
+    <div class="no-challenges" *ngIf="filteredChallenges.length === 0">
+      <h2>No challenges available with the selected filters</h2>
+      <p>Please select different filters to see challenges.</p>
+    </div>
+
+    <!-- Game Welcome Screen -->
+    <div class="welcome-screen" *ngIf="!gameStarted && !gameComplete && filteredChallenges.length > 0">
+      <div class="challenge-preview">
+        <h2>{{currentChallenge.title}}</h2>
+        <span class="difficulty-badge" [ngClass]="currentChallenge.difficulty.toLowerCase()">
+          {{currentChallenge.difficulty}}
+        </span>
+        <span class="language-badge">{{getLanguageDisplayName(currentChallenge.language)}}</span>
+        <p class="description">{{currentChallenge.description}}</p>
+        <div class="sample-case">
+          <div><strong>Sample Input:</strong> {{currentChallenge.sampleInput}}</div>
+          <div><strong>Sample Output:</strong> {{currentChallenge.sampleOutput}}</div>
+        </div>
+      </div>
+      <button class="start-button" (click)="startChallenge()">Start Challenge</button>
+    </div>
+
+    <!-- Game Area -->
+    <div class="game-area" *ngIf="gameStarted && !gameComplete">
+      <div class="challenge-info">
+        <div class="challenge-header">
+          <h2>{{currentChallenge.title}}</h2>
+          <div class="badges">
+            <span class="difficulty-badge" [ngClass]="currentChallenge.difficulty.toLowerCase()">
+              {{currentChallenge.difficulty}}
+            </span>
+            <span class="language-badge">{{getLanguageDisplayName(currentChallenge.language)}}</span>
+          </div>
+        </div>
+        <p class="description">{{currentChallenge.description}}</p>
+        <div class="sample-case">
+          <div><strong>Sample Input:</strong> {{currentChallenge.sampleInput}}</div>
+          <div><strong>Sample Output:</strong> {{currentChallenge.sampleOutput}}</div>
+        </div>
+        <div class="timer-area">
+          <div class="timer">Time: {{formattedTime}}</div>
+          <div class="elapsed">Elapsed: {{formattedElapsedTime}}</div>
+        </div>
+      </div>
+      
+      <div class="editor-section">
+        <div class="editor-toolbar">
+          <div class="left-tools">
+            <button (click)="toggleDarkMode()">
+              <i class="fas" [ngClass]="isDarkMode ? 'fa-sun' : 'fa-moon'"></i> 
+              {{isDarkMode ? 'Light Mode' : 'Dark Mode'}}
+            </button>
+            <button (click)="decreaseFontSize()" [disabled]="fontSize <= 10">A-</button>
+            <span class="font-size">{{fontSize}}px</span>
+            <button (click)="increaseFontSize()" [disabled]="fontSize >= 20">A+</button>
+          </div>
+          <div class="right-tools">
+            <button (click)="toggleHint()" class="hint-button">
+              <i class="fas fa-lightbulb"></i> Hint
+            </button>
+          </div>
+        </div>
+        
+        <!-- Code Editor -->
+        <div class="code-editor-container" [style.fontSize.px]="fontSize">
+          <pre class="language-{{currentChallenge.language}}"><code #codeEditor [ngClass]="'language-' + currentChallenge.language" [(ngModel)]="userCode" contenteditable="true">{{userCode}}</code></pre>
+        </div>
+        
+        <!-- Hint Panel -->
+        <div class="hint-panel" *ngIf="showHint">
+          <div class="hint-header">
+            <span>Hint {{currentHintIndex + 1}}/{{currentChallenge.hints?.length || 0}}</span>
+            <div class="hint-nav">
+              <button (click)="getPrevHint()" [disabled]="currentHintIndex === 0">
+                <i class="fas fa-chevron-left"></i>
+              </button>
+              <button (click)="getNextHint()" [disabled]="currentHintIndex >= ((currentChallenge.hints && currentChallenge.hints.length - 1) || 0)">
+                <i class="fas fa-chevron-right"></i>
+              </button>
+              <button (click)="toggleHint()">
+                <i class="fas fa-times"></i>
+              </button>
+            </div>
+          </div>
+          <div class="hint-content">
+            {{currentHint}}
+          </div>
+        </div>
+        
+        <!-- Output Panel -->
+        <div class="output-panel" *ngIf="submitted">
+          <h3>Results</h3>
+          <div class="output-message" [ngClass]="{'success': testResults.length > 0 && allTestsPassed(), 'error': testResults.length > 0 && !allTestsPassed()}">
+            {{output}}
+          </div>
+          <div class="test-cases">
+            <div class="test-case" *ngFor="let test of testResults" [ngClass]="{'passed': test.passed, 'failed': !test.passed}">
+              <div class="test-header">
+                <span class="test-status">
+                  <i class="fas" [ngClass]="test.passed ? 'fa-check' : 'fa-times'"></i>
+                  {{test.passed ? 'Passed' : 'Failed'}}
+                </span>
+              </div>
+              <div class="test-details">
+                <div><strong>Input:</strong> {{test.input}}</div>
+                <div><strong>Expected:</strong> {{test.expected}}</div>
+                <div><strong>Actual:</strong> {{test.actual}}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="game-controls">
+        <button class="submit-button" (click)="submitCode()" [disabled]="submitted && allTestsPassed()">
+          <ng-container *ngIf="submitted; else submitButtonText">
+            <ng-container *ngIf="allTestsPassed(); else tryAgainText">
+              Passed
+            </ng-container>
+            <ng-template #tryAgainText>Try Again</ng-template>
+          </ng-container>
+          <ng-template #submitButtonText>Submit</ng-template>
+        </button>
+        <button class="skip-button" (click)="skipChallenge()">Skip</button>
+        <button class="solution-button" (click)="showSolution()">Show Solution</button>
+      </div>
+    </div>
+
+    <!-- Game Complete Screen -->
+    <div class="game-complete" *ngIf="gameComplete">
+      <h2>🎉 Congratulations! 🎉</h2>
+      <p>You've completed all challenges in the selected category.</p>
+      <div class="stats-summary">
+        <div class="stat-item">
+          <span class="stat-label">Challenges Completed:</span>
+          <span class="stat-value">{{stats.challengesCompleted}}</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-label">Total Time:</span>
+          <span class="stat-value">{{formatTime(stats.timeSpent)}}</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-label">Languages Used:</span>
+          <span class="stat-value">{{stats.languagesUsed.join(', ')}}</span>
+        </div>
+      </div>
+      <div class="complete-actions">
+        <button (click)="resetGame()">Play Again</button>
+        <button (click)="toggleStats()">View Stats</button>
+        <button (click)="toggleLeaderboard()">Leaderboard</button>
+      </div>
+    </div>
+
+    <!-- Achievement Notification -->
+    <div class="achievement-notification" *ngFor="let achievement of newAchievements">
+      <div class="achievement-content">
+        <i class="fas fa-trophy"></i>
+        <div class="achievement-text">
+          <h4>Achievement Unlocked!</h4>
+          <p>{{achievement}}</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Leaderboard Modal -->
+    <div class="modal" *ngIf="showLeaderboard">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2>Leaderboard</h2>
+          <button (click)="toggleLeaderboard()" class="close-button">×</button>
+        </div>
+        <div class="modal-body">
+          <table class="leaderboard-table">
+            <thead>
+              <tr>
+                <th>Rank</th>
+                <th>Name</th>
+                <th>Score</th>
+                <th>Challenges</th>
+                <th>Avg. Time</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let entry of leaderboard; let i = index">
+                <td>{{i + 1}}</td>
+                <td>{{entry.name}}</td>
+                <td>{{entry.score}}</td>
+                <td>{{entry.challengesCompleted}}</td>
+                <td>{{formatAverageTime(entry.totalTime / entry.challengesCompleted)}}</td>
+              </tr>
+              <tr *ngIf="leaderboard.length === 0">
+                <td colspan="5" class="empty-message">No entries yet. Be the first!</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- Stats Modal -->
+    <div class="modal" *ngIf="showStats">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2>Your Statistics</h2>
+          <button (click)="toggleStats()" class="close-button">×</button>
+        </div>
+        <div class="modal-body">
+          <div class="stats-container">
+            <div class="stats-section">
+              <h3>Performance</h3>
+              <div class="stat-row">
+                <span>Challenges Completed:</span>
+                <span>{{stats.challengesCompleted}}</span>
+              </div>
+              <div class="stat-row">
+                <span>Total Time Spent:</span>
+                <span>{{formatTime(stats.timeSpent)}}</span>
+              </div>
+              <div class="stat-row">
+                <span>Fastest Solve:</span>
+                <span>{{stats.fastestSolve === Infinity ? 'N/A' : formatTime(stats.fastestSolve)}}</span>
+              </div>
+              <div class="stat-row">
+                <span>Languages Used:</span>
+                <span>{{stats.languagesUsed.join(', ') || 'None'}}</span>
+              </div>
+            </div>
+
+            <div class="stats-section">
+              <h3>Achievements</h3>
+              <button (click)="toggleAchievements()" class="view-achievements">
+                {{showAchievements ? 'Hide Achievements' : 'View Achievements'}}
+              </button>
+              <div class="achievements-list" *ngIf="showAchievements">
+                <div class="achievement-item" *ngFor="let achievement of achievements" [class.unlocked]="achievement.unlocked">
+                  <div class="achievement-icon">
+                    <i class="fas fa-trophy" *ngIf="achievement.unlocked"></i>
+                    <i class="fas fa-lock" *ngIf="!achievement.unlocked"></i>
+                  </div>
+                  <div class="achievement-details">
+                    <h4>{{achievement.name}}</h4>
+                    <p>{{achievement.description}}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div> 

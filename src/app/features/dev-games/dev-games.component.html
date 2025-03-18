@@ -1,0 +1,84 @@
+<div class="container mx-auto px-4 py-8 bg-white dark:bg-gray-900 min-h-screen">
+  <div class="mb-8">
+    <h1 class="text-3xl font-bold text-indigo-600 dark:text-indigo-400 mb-2">Developer Games</h1>
+    <p class="text-gray-600 dark:text-gray-300">Take a break and sharpen your coding skills with these fun dev games!</p>
+  </div>
+  
+  <div class="flex flex-col md:flex-row gap-6">
+    <!-- Game selection sidebar -->
+    <div class="md:w-1/4">
+      <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-4 mb-6">
+        <h2 class="text-lg font-bold mb-4 text-gray-800 dark:text-white">Game Library</h2>
+        <ul class="space-y-2">
+          <li *ngFor="let game of games; let i = index">
+            <button 
+              (click)="setActiveGame(i)"
+              class="w-full flex items-center space-x-3 px-3 py-3 rounded-md text-left text-sm font-medium transition-colors duration-200"
+              [ngClass]="activeGameIndex === i ? 
+                'bg-indigo-600 text-white hover:bg-indigo-700' : 
+                'bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-600'"
+            >
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" [attr.d]="game.icon"></path>
+              </svg>
+              <span>{{ game.name }}</span>
+            </button>
+          </li>
+        </ul>
+      </div>
+      
+      <div class="bg-gray-100 dark:bg-gray-700 rounded-lg p-4">
+        <h3 class="font-bold text-gray-800 dark:text-white mb-2">Benefits of Coding Games</h3>
+        <ul class="text-sm text-gray-600 dark:text-gray-300 space-y-2">
+          <li class="flex items-start">
+            <svg class="w-4 h-4 text-green-500 mt-1 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+            </svg>
+            Improves problem-solving skills
+          </li>
+          <li class="flex items-start">
+            <svg class="w-4 h-4 text-green-500 mt-1 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+            </svg>
+            Enhances pattern recognition
+          </li>
+          <li class="flex items-start">
+            <svg class="w-4 h-4 text-green-500 mt-1 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+            </svg>
+            Makes learning more enjoyable
+          </li>
+          <li class="flex items-start">
+            <svg class="w-4 h-4 text-green-500 mt-1 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+            </svg>
+            Perfect for mental breaks
+          </li>
+        </ul>
+      </div>
+    </div>
+    
+    <!-- Game content area -->
+    <div class="md:w-3/4">
+      <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6">
+        <div *ngIf="activeGameIndex === 0">
+          <h2 class="text-2xl font-bold text-gray-800 dark:text-white mb-3">{{ games[0].name }}</h2>
+          <p class="text-gray-600 dark:text-gray-300 mb-6">{{ games[0].description }}</p>
+          <app-code-guess></app-code-guess>
+        </div>
+        
+        <div *ngIf="activeGameIndex === 1">
+          <h2 class="text-2xl font-bold text-gray-800 dark:text-white mb-3">{{ games[1].name }}</h2>
+          <p class="text-gray-600 dark:text-gray-300 mb-6">{{ games[1].description }}</p>
+          <app-bug-catcher></app-bug-catcher>
+        </div>
+        
+        <div *ngIf="activeGameIndex === 2">
+          <h2 class="text-2xl font-bold text-gray-800 dark:text-white mb-3">{{ games[2].name }}</h2>
+          <p class="text-gray-600 dark:text-gray-300 mb-6">{{ games[2].description }}</p>
+          <app-algorithm-runner></app-algorithm-runner>
+        </div>
+      </div>
+    </div>
+  </div>
+</div> 

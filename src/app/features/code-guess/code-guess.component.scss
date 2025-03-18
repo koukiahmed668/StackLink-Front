@@ -1,0 +1,311 @@
+.code-guess-container {
+  max-width: 640px;
+  padding: 1rem;
+  margin: 0 auto;
+}
+
+.game-board {
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+// Generate grid column classes
+@for $i from 3 through 10 {
+  .grid-cols-#{$i} {
+    display: grid !important;
+    grid-template-columns: repeat(#{$i}, minmax(0, 1fr)) !important;
+  }
+}
+
+.has-long-word {
+  max-width: 600px;
+}
+
+.letter-box {
+  width: 3.5rem;
+  height: 3.5rem;
+  border-radius: 4px;
+  transition: transform 0.3s, background-color 0.2s;
+  
+  // Dark mode styles
+  :host-context(.dark) & {
+    border-color: #4b5563;
+    color: #f3f4f6;
+  }
+  
+  @media (max-width: 640px) {
+    width: 3rem;
+    height: 3rem;
+    font-size: 1.125rem;
+  }
+  
+  @media (max-width: 480px) {
+    width: 2.5rem;
+    height: 2.5rem;
+    font-size: 1rem;
+  }
+  
+  @media (max-width: 375px) {
+    width: 2rem;
+    height: 2rem;
+    font-size: 0.875rem;
+  }
+}
+
+.keyboard-container {
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.keyboard-row {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 8px;
+}
+
+.keyboard-key {
+  min-width: 2.5rem;
+  height: 3.5rem;
+  margin: 0 4px;
+  border-radius: 4px;
+  font-size: 1rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  
+  // Dark mode styles for uncolored keys
+  :host-context(.dark) & {
+    background-color: #4b5563;
+    color: #f3f4f6;
+    
+    &.bg-gray-200 {
+      background-color: #4b5563;
+    }
+  }
+  
+  @media (max-width: 640px) {
+    min-width: 2rem;
+    height: 3rem;
+  }
+  
+  @media (max-width: 480px) {
+    min-width: 1.75rem;
+    height: 2.75rem;
+    margin: 0 2px;
+    font-size: 0.875rem;
+  }
+  
+  @media (max-width: 375px) {
+    min-width: 1.5rem;
+    height: 2.5rem;
+    font-size: 0.75rem;
+  }
+  
+  &:hover {
+    opacity: 0.9;
+  }
+  
+  &:active {
+    transform: scale(0.95);
+  }
+}
+
+.bg-green-600,
+.bg-yellow-500,
+.bg-gray-600 {
+  animation: flip 0.5s ease forwards;
+}
+
+@keyframes flip {
+  0% {
+    transform: rotateX(0);
+  }
+  50% {
+    transform: rotateX(90deg);
+  }
+  100% {
+    transform: rotateX(0);
+  }
+}
+
+/* Switch for Daily Challenge */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 36px;
+  height: 20px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 16px;
+  width: 16px;
+  left: 2px;
+  bottom: 2px;
+  background-color: white;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: #4f46e5;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #4f46e5;
+}
+
+input:checked + .slider:before {
+  transform: translateX(16px);
+}
+
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+
+/* Stats and modals dark mode */
+:host-context(.dark) {
+  .bg-white {
+    background-color: #1f2937;
+  }
+  
+  .text-gray-500, .text-gray-600, .text-gray-700, .text-gray-800 {
+    color: #d1d5db;
+  }
+  
+  .border-gray-300 {
+    border-color: #4b5563;
+  }
+  
+  .bg-gray-300 {
+    background-color: #4b5563;
+  }
+  
+  .text-gray-600 {
+    color: #d1d5db;
+  }
+  
+  .bg-gray-100 {
+    background-color: #374151;
+  }
+  
+  .text-green-800 {
+    color: #10b981;
+  }
+  
+  .bg-green-100 {
+    background-color: rgba(16, 185, 129, 0.2);
+  }
+  
+  .text-red-800 {
+    color: #ef4444;
+  }
+  
+  .bg-red-100 {
+    background-color: rgba(239, 68, 68, 0.2);
+  }
+  
+  .bg-indigo-100 {
+    background-color: rgba(99, 102, 241, 0.2);
+  }
+  
+  .text-indigo-800 {
+    color: #6366f1;
+  }
+  
+  .bg-yellow-100 {
+    background-color: rgba(245, 158, 11, 0.2);
+  }
+  
+  .text-yellow-700 {
+    color: #f59e0b;
+  }
+  
+  .border-yellow-500 {
+    border-color: #f59e0b;
+  }
+}
+
+/* Stats item animation */
+.stat-item {
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+/* Animations */
+@keyframes pop {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Mobile responsiveness */
+@media (max-width: 640px) {
+  .code-guess-container {
+    max-width: 100%;
+  }
+  
+  .letter-box {
+    width: 10vw !important;
+    height: 10vw !important;
+    font-size: 1rem !important;
+  }
+  
+  .keyboard-key {
+    min-width: 24px;
+    height: 40px;
+    font-size: 0.75rem;
+  }
+}
+
+// Adjust container size for larger words
+@media (min-width: 768px) {
+  .game-board {
+    &.has-long-word {
+      max-width: 80vw;
+    }
+  }
+} 
