@@ -33,106 +33,106 @@ export class CodeGuessComponent implements OnInit {
   isDarkMode$: Observable<boolean>;
   wordPool: { word: string, category: Category, hint?: string }[] = [
     // Languages
-    { word: 'SWIFT', category: 'Languages', hint: 'Apple\'s programming language for iOS and macOS development' },
-    { word: 'KOTLIN', category: 'Languages', hint: 'Modern language developed by JetBrains, official for Android' },
-    { word: 'PYTHON', category: 'Languages', hint: 'Interpreted language known for readability and versatility' },
-    { word: 'RUST', category: 'Languages', hint: 'Systems language focused on safety and performance' },
-    { word: 'SCALA', category: 'Languages', hint: 'Combines object-oriented and functional programming on the JVM' },
-    { word: 'JAVA', category: 'Languages', hint: 'Object-oriented language with "write once, run anywhere" philosophy' },
-    { word: 'CSHARP', category: 'Languages', hint: 'Microsoft\'s language for .NET platform, pronounced "C-sharp"' },
-    { word: 'GOLANG', category: 'Languages', hint: 'Developed at Google, focused on simplicity and efficiency' },
-    { word: 'RUBY', category: 'Languages', hint: 'Dynamic language designed for programmer happiness' },
-    { word: 'PHP', category: 'Languages', hint: 'Server-side scripting language for web development' },
-    { word: 'PERL', category: 'Languages', hint: 'Text processing language known for regular expressions' },
-    { word: 'BASH', category: 'Languages', hint: 'Unix shell and command language' },
-    { word: 'LUA', category: 'Languages', hint: 'Lightweight embedded scripting language' },
-    { word: 'CPP', category: 'Languages', hint: 'Extension of C with object-oriented features' },
-    { word: 'DART', category: 'Languages', hint: 'Developed by Google, used with Flutter framework' },
-    { word: 'JAVASCRIPT', category: 'Languages', hint: 'Scripting language for the web, runs in browsers' },
-    { word: 'TYPESCRIPT', category: 'Languages', hint: 'Adds static typing to JavaScript' },
-    { word: 'HASKELL', category: 'Languages', hint: 'Purely functional programming language' },
-    { word: 'CLOJURE', category: 'Languages', hint: 'Modern Lisp dialect on the JVM' },
-    { word: 'ERLANG', category: 'Languages', hint: 'Functional language designed for concurrent systems' },
-    { word: 'GROOVY', category: 'Languages', hint: 'Dynamic language for the Java platform' },
-    { word: 'FORTRAN', category: 'Languages', hint: 'One of the oldest programming languages, used in scientific computing' },
-    { word: 'COBOL', category: 'Languages', hint: 'Business-oriented language from the 1950s, still used in legacy systems' },
+    { word: 'SWIFT', category: 'Languages', hint: 'Apple\'s language for iOS/macOS' },
+    { word: 'KOTLIN', category: 'Languages', hint: 'Modern Android language' },
+    { word: 'PYTHON', category: 'Languages', hint: 'Known for readability and versatility' },
+    { word: 'RUST', category: 'Languages', hint: 'Memory-safe systems language' },
+    { word: 'SCALA', category: 'Languages', hint: 'Mix of OOP and functional on JVM' },
+    { word: 'JAVA', category: 'Languages', hint: 'Write once, run anywhere' },
+    { word: 'CSHARP', category: 'Languages', hint: 'Microsoft\'s .NET language' },
+    { word: 'GOLANG', category: 'Languages', hint: 'Google\'s efficient language' },
+    { word: 'RUBY', category: 'Languages', hint: 'Designed for programmer happiness' },
+    { word: 'PHP', category: 'Languages', hint: 'Server-side web scripting' },
+    { word: 'PERL', category: 'Languages', hint: 'Text processing & regex' },
+    { word: 'BASH', category: 'Languages', hint: 'Unix shell scripting' },
+    { word: 'LUA', category: 'Languages', hint: 'Embedded scripting language' },
+    { word: 'CPP', category: 'Languages', hint: 'C with classes' },
+    { word: 'DART', category: 'Languages', hint: 'Used with Flutter' },
+    { word: 'JAVASCRIPT', category: 'Languages', hint: 'Web browser scripting' },
+    { word: 'TYPESCRIPT', category: 'Languages', hint: 'JavaScript with types' },
+    { word: 'HASKELL', category: 'Languages', hint: 'Purely functional language' },
+    { word: 'CLOJURE', category: 'Languages', hint: 'Modern Lisp on JVM' },
+    { word: 'ERLANG', category: 'Languages', hint: 'Built for concurrency' },
+    { word: 'GROOVY', category: 'Languages', hint: 'Dynamic JVM language' },
+    { word: 'FORTRAN', category: 'Languages', hint: 'Old scientific computing language' },
+    { word: 'COBOL', category: 'Languages', hint: 'Business-oriented legacy language' },
     
     // Frameworks & Libraries
-    { word: 'REACT', category: 'Frameworks', hint: 'Facebook\'s JavaScript library for building user interfaces' },
-    { word: 'ANGULAR', category: 'Frameworks', hint: 'Google\'s TypeScript-based web framework' },
-    { word: 'SVELTE', category: 'Frameworks', hint: 'Compiler-based framework that does the work at build time' },
-    { word: 'JQUERY', category: 'Frameworks', hint: 'JavaScript library that simplifies DOM manipulation' },
-    { word: 'FLASK', category: 'Frameworks', hint: 'Lightweight web framework for Python' },
-    { word: 'DJANGO', category: 'Frameworks', hint: 'High-level Python web framework with "batteries included"' },
-    { word: 'SPRING', category: 'Frameworks', hint: 'Java platform providing infrastructure support' },
-    { word: 'RAILS', category: 'Frameworks', hint: 'Ruby web application framework using MVC pattern' },
-    { word: 'EXPRESS', category: 'Frameworks', hint: 'Minimal Node.js web application framework' },
-    { word: 'NEXT', category: 'Frameworks', hint: 'React framework for production with server-side rendering' },
-    { word: 'LARAVEL', category: 'Frameworks', hint: 'PHP web framework with elegant syntax' },
-    { word: 'VUE', category: 'Frameworks', hint: 'Progressive JavaScript framework for building UIs' },
-    { word: 'NUXT', category: 'Frameworks', hint: 'Higher-level framework built on Vue.js' },
-    { word: 'BOOTSTRAP', category: 'Frameworks', hint: 'Popular CSS framework for responsive design' },
-    { word: 'EMBER', category: 'Frameworks', hint: 'JavaScript framework for ambitious web applications' },
-    { word: 'FASTAPI', category: 'Frameworks', hint: 'Modern Python web framework with automatic docs' },
-    { word: 'METEOR', category: 'Frameworks', hint: 'Full-stack JavaScript platform for web and mobile' },
+    { word: 'REACT', category: 'Frameworks', hint: 'UI library with virtual DOM' },
+    { word: 'ANGULAR', category: 'Frameworks', hint: 'Google\'s TypeScript framework' },
+    { word: 'SVELTE', category: 'Frameworks', hint: 'Compiles at build time' },
+    { word: 'JQUERY', category: 'Frameworks', hint: 'Simplifies DOM manipulation' },
+    { word: 'FLASK', category: 'Frameworks', hint: 'Lightweight Python web framework' },
+    { word: 'DJANGO', category: 'Frameworks', hint: 'Batteries-included Python framework' },
+    { word: 'SPRING', category: 'Frameworks', hint: 'Java enterprise framework' },
+    { word: 'RAILS', category: 'Frameworks', hint: 'Ruby web framework with conventions' },
+    { word: 'EXPRESS', category: 'Frameworks', hint: 'Minimal Node.js web framework' },
+    { word: 'NEXT', category: 'Frameworks', hint: 'React with server-side rendering' },
+    { word: 'LARAVEL', category: 'Frameworks', hint: 'Elegant PHP framework' },
+    { word: 'VUE', category: 'Frameworks', hint: 'Progressive JS framework' },
+    { word: 'NUXT', category: 'Frameworks', hint: 'Higher-level Vue framework' },
+    { word: 'BOOTSTRAP', category: 'Frameworks', hint: 'Popular CSS framework' },
+    { word: 'EMBER', category: 'Frameworks', hint: 'Opinionated JS framework' },
+    { word: 'FASTAPI', category: 'Frameworks', hint: 'Fast Python API framework' },
+    { word: 'METEOR', category: 'Frameworks', hint: 'Full-stack JS platform' },
     { word: 'GATSBY', category: 'Frameworks', hint: 'React-based static site generator' },
-    { word: 'XAMARIN', category: 'Frameworks', hint: 'Microsoft\'s platform for building mobile apps with .NET' },
-    { word: 'FLUTTER', category: 'Frameworks', hint: 'Google\'s UI toolkit for building natively compiled applications' },
+    { word: 'XAMARIN', category: 'Frameworks', hint: '.NET for mobile apps' },
+    { word: 'FLUTTER', category: 'Frameworks', hint: 'Google\'s UI toolkit for mobile' },
     
     // Concepts
-    { word: 'CLASS', category: 'Concepts', hint: 'Blueprint for creating objects in OOP' },
-    { word: 'ARRAY', category: 'Concepts', hint: 'Data structure to store a collection of elements' },
-    { word: 'STACK', category: 'Concepts', hint: 'LIFO (Last In, First Out) data structure' },
-    { word: 'QUEUE', category: 'Concepts', hint: 'FIFO (First In, First Out) data structure' },
-    { word: 'GRAPH', category: 'Concepts', hint: 'Data structure with nodes and edges' },
-    { word: 'TREE', category: 'Concepts', hint: 'Hierarchical data structure with nodes and branches' },
-    { word: 'CONST', category: 'Concepts', hint: 'Keyword to declare constants that cannot be reassigned' },
-    { word: 'AWAIT', category: 'Concepts', hint: 'Used to pause execution until a Promise resolves' },
-    { word: 'YIELD', category: 'Concepts', hint: 'Keyword used in generators to pause and resume function execution' },
-    { word: 'ASYNC', category: 'Concepts', hint: 'Keyword to define functions that return Promises' },
-    { word: 'PROPS', category: 'Concepts', hint: 'Properties passed to components in React' },
-    { word: 'HOOKS', category: 'Concepts', hint: 'Functions that let you use state in functional components' },
-    { word: 'STATE', category: 'Concepts', hint: 'Data that changes over time in an application' },
-    { word: 'LOOP', category: 'Concepts', hint: 'Control structure that repeats a block of code' },
-    { word: 'DEBUG', category: 'Concepts', hint: 'Process of finding and fixing errors in code' },
-    { word: 'VAR', category: 'Concepts', hint: 'Keyword for declaring variables with function scope' },
-    { word: 'MAP', category: 'Concepts', hint: 'Data structure that stores key-value pairs' },
-    { word: 'HASH', category: 'Concepts', hint: 'Function that converts data to a fixed-size value' },
-    { word: 'CODE', category: 'Concepts', hint: 'Set of instructions for computers to follow' },
-    { word: 'ALGORITHM', category: 'Concepts', hint: 'Step-by-step procedure for solving a problem' },
-    { word: 'RECURSION', category: 'Concepts', hint: 'Process where a function calls itself' },
-    { word: 'LAMBDA', category: 'Concepts', hint: 'Anonymous function expression' },
-    { word: 'PATTERN', category: 'Concepts', hint: 'Reusable solution to a common problem in software design' },
-    { word: 'PROMISE', category: 'Concepts', hint: 'Object representing eventual completion of an async operation' },
-    { word: 'THREAD', category: 'Concepts', hint: 'Smallest unit of execution in a process' },
-    { word: 'MUTEX', category: 'Concepts', hint: 'Mechanism for ensuring mutual exclusion in concurrent systems' },
-    { word: 'STATIC', category: 'Concepts', hint: 'Keyword for elements belonging to a class rather than instances' },
-    { word: 'API', category: 'Concepts', hint: 'Interface allowing different software to communicate' },
+    { word: 'CLASS', category: 'Concepts', hint: 'OOP blueprint for objects' },
+    { word: 'ARRAY', category: 'Concepts', hint: 'Collection of elements' },
+    { word: 'STACK', category: 'Concepts', hint: 'LIFO data structure' },
+    { word: 'QUEUE', category: 'Concepts', hint: 'FIFO data structure' },
+    { word: 'GRAPH', category: 'Concepts', hint: 'Nodes connected by edges' },
+    { word: 'TREE', category: 'Concepts', hint: 'Hierarchical data structure' },
+    { word: 'CONST', category: 'Concepts', hint: 'Declares unchangeable values' },
+    { word: 'AWAIT', category: 'Concepts', hint: 'Pauses for Promise resolution' },
+    { word: 'YIELD', category: 'Concepts', hint: 'Used in generator functions' },
+    { word: 'ASYNC', category: 'Concepts', hint: 'For asynchronous functions' },
+    { word: 'PROPS', category: 'Concepts', hint: 'Component input in React' },
+    { word: 'HOOKS', category: 'Concepts', hint: 'Function component features' },
+    { word: 'STATE', category: 'Concepts', hint: 'Data that changes over time' },
+    { word: 'LOOP', category: 'Concepts', hint: 'Repeats a code block' },
+    { word: 'DEBUG', category: 'Concepts', hint: 'Finding and fixing bugs' },
+    { word: 'VAR', category: 'Concepts', hint: 'Function-scoped variable' },
+    { word: 'MAP', category: 'Concepts', hint: 'Key-value data structure' },
+    { word: 'HASH', category: 'Concepts', hint: 'Fixed-size data conversion' },
+    { word: 'CODE', category: 'Concepts', hint: 'Computer instructions' },
+    { word: 'ALGORITHM', category: 'Concepts', hint: 'Step-by-step problem solution' },
+    { word: 'RECURSION', category: 'Concepts', hint: 'Function calling itself' },
+    { word: 'LAMBDA', category: 'Concepts', hint: 'Anonymous function' },
+    { word: 'PATTERN', category: 'Concepts', hint: 'Reusable design solution' },
+    { word: 'PROMISE', category: 'Concepts', hint: 'Async operation result' },
+    { word: 'THREAD', category: 'Concepts', hint: 'Execution unit in a process' },
+    { word: 'MUTEX', category: 'Concepts', hint: 'Mutual exclusion lock' },
+    { word: 'STATIC', category: 'Concepts', hint: 'Class-level not instance-level' },
+    { word: 'API', category: 'Concepts', hint: 'Interface between software' },
     
     // Tools
-    { word: 'VSCODE', category: 'Tools', hint: 'Microsoft\'s free, open-source code editor' },
-    { word: 'GITHUB', category: 'Tools', hint: 'Web-based platform for version control using Git' },
-    { word: 'GITLAB', category: 'Tools', hint: 'Web-based DevOps platform with Git repository manager' },
-    { word: 'DOCKER', category: 'Tools', hint: 'Platform for developing and deploying applications in containers' },
-    { word: 'JENKINS', category: 'Tools', hint: 'Open-source automation server for CI/CD pipelines' },
-    { word: 'JIRA', category: 'Tools', hint: 'Issue tracking and project management tool' },
-    { word: 'BABEL', category: 'Tools', hint: 'JavaScript compiler that converts modern JS to backwards compatible versions' },
-    { word: 'WEBPACK', category: 'Tools', hint: 'Module bundler for JavaScript applications' },
-    { word: 'NGINX', category: 'Tools', hint: 'Web server that can also be used as reverse proxy and load balancer' },
-    { word: 'REDIS', category: 'Tools', hint: 'In-memory data structure store used as database or cache' },
-    { word: 'MYSQL', category: 'Tools', hint: 'Popular open-source relational database management system' },
-    { word: 'MONGO', category: 'Tools', hint: 'Document-oriented NoSQL database' },
-    { word: 'GIT', category: 'Tools', hint: 'Distributed version control system' },
-    { word: 'NPM', category: 'Tools', hint: 'Package manager for JavaScript' },
-    { word: 'YARN', category: 'Tools', hint: 'Alternative package manager for JavaScript' },
-    { word: 'KUBERNETES', category: 'Tools', hint: 'Container orchestration system for automating deployment' },
-    { word: 'TRAVIS', category: 'Tools', hint: 'CI/CD service used to build and test projects hosted on GitHub' },
-    { word: 'FIGMA', category: 'Tools', hint: 'Cloud-based design and prototyping tool' },
-    { word: 'POSTMAN', category: 'Tools', hint: 'API platform for building and testing APIs' },
-    { word: 'ESLINT', category: 'Tools', hint: 'Static code analysis tool for JavaScript' },
-    { word: 'JEST', category: 'Tools', hint: 'JavaScript testing framework focused on simplicity' },
-    { word: 'HEROKU', category: 'Tools', hint: 'Cloud platform as a service for deploying applications' },
-    { word: 'AWS', category: 'Tools', hint: 'Amazon\'s cloud computing platform' }
+    { word: 'VSCODE', category: 'Tools', hint: 'Microsoft\'s code editor' },
+    { word: 'GITHUB', category: 'Tools', hint: 'Web-based Git hosting' },
+    { word: 'GITLAB', category: 'Tools', hint: 'DevOps platform with Git' },
+    { word: 'DOCKER', category: 'Tools', hint: 'Container platform' },
+    { word: 'JENKINS', category: 'Tools', hint: 'CI/CD automation server' },
+    { word: 'JIRA', category: 'Tools', hint: 'Issue tracking software' },
+    { word: 'BABEL', category: 'Tools', hint: 'JavaScript compiler' },
+    { word: 'WEBPACK', category: 'Tools', hint: 'JS module bundler' },
+    { word: 'NGINX', category: 'Tools', hint: 'Web server and proxy' },
+    { word: 'REDIS', category: 'Tools', hint: 'In-memory data store' },
+    { word: 'MYSQL', category: 'Tools', hint: 'Popular relational database' },
+    { word: 'MONGO', category: 'Tools', hint: 'NoSQL document database' },
+    { word: 'GIT', category: 'Tools', hint: 'Version control system' },
+    { word: 'NPM', category: 'Tools', hint: 'Node package manager' },
+    { word: 'YARN', category: 'Tools', hint: 'Alternative to NPM' },
+    { word: 'KUBERNETES', category: 'Tools', hint: 'Container orchestration' },
+    { word: 'TRAVIS', category: 'Tools', hint: 'CI service for GitHub' },
+    { word: 'FIGMA', category: 'Tools', hint: 'Collaborative design tool' },
+    { word: 'POSTMAN', category: 'Tools', hint: 'API testing platform' },
+    { word: 'ESLINT', category: 'Tools', hint: 'JavaScript linter' },
+    { word: 'JEST', category: 'Tools', hint: 'JS testing framework' },
+    { word: 'HEROKU', category: 'Tools', hint: 'Cloud platform as a service' },
+    { word: 'AWS', category: 'Tools', hint: 'Amazon\'s cloud services' }
   ];
   
   selectedWord: string = '';
@@ -196,6 +196,7 @@ export class CodeGuessComponent implements OnInit {
   // Add properties for hints
   currentWordHint: string = '';
   showHint: boolean = false;
+  completeHint: boolean = false;
   
   // Add property for API words
   generalWords: WordWithHint[] = [];
@@ -359,6 +360,7 @@ export class CodeGuessComponent implements OnInit {
     this.errorMessage = '';
     this.letterStates = {};
     this.showHint = false;
+    this.completeHint = false;
     
     // Clear achievement notifications
     this.newAchievements = [];
@@ -576,7 +578,27 @@ export class CodeGuessComponent implements OnInit {
           let hint = '';
           
           if (meanings && meanings.length > 0 && meanings[0].definitions.length > 0) {
-            hint = meanings[0].definitions[0].definition;
+            // Get the full definition
+            const fullDefinition = meanings[0].definitions[0].definition;
+            
+            // Shorten the hint - take first part of definition up to 30 chars
+            if (fullDefinition.length > 30) {
+              // Try to cut at a sensible point (period, comma, or space)
+              const periodIndex = fullDefinition.indexOf('.', 20);
+              const commaIndex = fullDefinition.indexOf(',', 20);
+              const spaceIndex = fullDefinition.indexOf(' ', 25);
+              
+              let cutIndex = 30;
+              if (periodIndex > 0 && periodIndex < 40) cutIndex = periodIndex + 1;
+              else if (commaIndex > 0 && commaIndex < 35) cutIndex = commaIndex + 1;
+              else if (spaceIndex > 0 && spaceIndex < 35) cutIndex = spaceIndex;
+              
+              hint = fullDefinition.substring(0, cutIndex).trim();
+              // Add ellipsis if we cut the definition
+              if (hint.length < fullDefinition.length) hint += '...';
+            } else {
+              hint = fullDefinition;
+            }
           }
           
           return {
@@ -621,11 +643,32 @@ export class CodeGuessComponent implements OnInit {
   }
   
   toggleHint(): void {
-    this.showHint = !this.showHint;
-    
-    if (this.showHint) {
+    if (!this.showHint) {
+      // First click: show basic hint
+      this.showHint = true;
+      this.completeHint = false;
       this.stats.hintsUsed++;
       this.saveData();
+    } else if (this.guesses.length >= 4 && !this.completeHint) {
+      // Second click after 4+ guesses: show enhanced hint
+      this.completeHint = true;
+    } else {
+      // Hide hint completely
+      this.showHint = false;
+      this.completeHint = false;
     }
+  }
+  
+  getEnhancedHint(): string {
+    if (!this.currentWordHint) return '';
+    
+    const category = this.wordPool.find(w => w.word === this.selectedWord)?.category || '';
+    
+    if (this.completeHint) {
+      // Add the first letter hint to the regular hint
+      return `${this.currentWordHint} (Starts with "${this.selectedWord[0]}")`;
+    }
+    
+    return this.currentWordHint;
   }
 } 

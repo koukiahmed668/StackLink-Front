@@ -308,4 +308,69 @@ input:checked + .slider:before {
       max-width: 80vw;
     }
   }
+}
+
+/* Hint button animations */
+@keyframes pulse-glow {
+  0% {
+    box-shadow: 0 0 0 0 rgba(79, 70, 229, 0.4);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(79, 70, 229, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(79, 70, 229, 0);
+  }
+}
+
+// Dark mode pulse glow
+@keyframes pulse-glow-dark {
+  0% {
+    box-shadow: 0 0 0 0 rgba(139, 92, 246, 0.3);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(139, 92, 246, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(139, 92, 246, 0);
+  }
+}
+
+// Complete hint pulse
+@keyframes complete-hint-pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(124, 58, 237, 0.5);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(124, 58, 237, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(124, 58, 237, 0);
+  }
+}
+
+.animate-pulse {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite, pulse-glow 2s infinite !important;
+  
+  :host-context(.dark) & {
+    animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite, pulse-glow-dark 2s infinite !important;
+  }
+}
+
+// Style for the complete hint button  
+button.bg-purple-100 {
+  transition: all 0.3s ease;
+  animation: pop 0.5s ease, complete-hint-pulse 2s infinite !important;
+  font-weight: 600;
+}
+
+// Style for the complete hint box
+.bg-purple-100 {
+  background-color: rgba(167, 139, 250, 0.2);
+  border-color: #8b5cf6;
+  
+  :host-context(.dark) & {
+    background-color: rgba(139, 92, 246, 0.2);
+    border-color: #a78bfa;
+  }
 } 
