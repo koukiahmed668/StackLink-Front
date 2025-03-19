@@ -310,6 +310,9 @@ export class CodeGuessComponent implements OnInit {
   startNewGame(): void {
     this.resetGame();
     
+    // Clear any achievement notifications
+    this.newAchievements = [];
+    
     // If the word pool is empty (perhaps still loading), wait a bit
     if (this.wordPool.length === 0) {
       setTimeout(() => this.startNewGame(), 500);
@@ -356,6 +359,9 @@ export class CodeGuessComponent implements OnInit {
     this.errorMessage = '';
     this.letterStates = {};
     this.showHint = false;
+    
+    // Clear achievement notifications
+    this.newAchievements = [];
   }
   
   handleKeyboardInput(key: string): void {
