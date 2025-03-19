@@ -3,6 +3,7 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { ThemeService } from '../../core/services/theme.service';
 import { Observable } from 'rxjs';
+import { NotificationCenterComponent } from '../../shared/components/notification-center/notification-center.component';
 
 @Component({
   selector: 'app-header',
@@ -12,7 +13,8 @@ import { Observable } from 'rxjs';
   imports: [
     CommonModule,
     RouterLink,
-    RouterLinkActive
+    RouterLinkActive,
+    NotificationCenterComponent
   ]
 })
 export class HeaderComponent {

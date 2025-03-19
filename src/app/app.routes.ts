@@ -5,7 +5,10 @@ import { TechNewsComponent } from './features/tech-news/tech-news/tech-news.comp
 import { PortfoliosComponent } from './features/portfolios/portfolios/portfolios.component';
 import { LoginComponent } from './features/auth/login/login.component';
 import { RegisterComponent } from './features/auth/register/register.component';
-import { DevGamesComponent } from './features/dev-games/dev-games.component';
+import { DevGamesComponent } from './features/dev-games/dev-games/dev-games.component';
+import { CodeGuessComponent } from './features/code-guess/code-guess.component';
+import { BugCatcherComponent } from './features/bug-catcher/bug-catcher.component';
+import { AlgorithmRunnerComponent } from './features/algorithm-runner/algorithm-runner.component';
 
 export const routes: Routes = [
   {
@@ -35,7 +38,19 @@ export const routes: Routes = [
   },
   {
     path: 'dev-games',
-    loadComponent: () => import('./features/dev-games/dev-games.component').then(c => c.DevGamesComponent)
+    loadComponent: () => import('./features/dev-games/dev-games/dev-games.component').then(c => c.DevGamesComponent)
+  },
+  {
+    path: 'dev-games/code-guess',
+    component: CodeGuessComponent
+  },
+  {
+    path: 'dev-games/bug-catcher',
+    component: BugCatcherComponent
+  },
+  {
+    path: 'dev-games/algorithm-runner',
+    component: AlgorithmRunnerComponent
   },
   {
     path: 'auth',

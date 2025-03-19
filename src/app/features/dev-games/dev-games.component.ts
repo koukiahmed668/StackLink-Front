@@ -26,7 +26,7 @@ export class DevGamesComponent implements OnInit {
     {
       id: 'code-guess',
       name: 'Code Guess',
-      description: 'Guess the 5-letter coding term in 6 tries',
+      description: 'Guess the coding term in 6 tries',
       icon: 'M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4'
     },
     {

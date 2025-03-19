@@ -50,6 +50,32 @@
     {{ errorMessage }}
   </div>
 
+  <!-- Hint Section -->
+  <div *ngIf="currentWordHint" class="mb-4 flex justify-center">
+    <button 
+      (click)="toggleHint()" 
+      class="bg-indigo-100 dark:bg-indigo-900/30 text-indigo-800 dark:text-indigo-300 px-4 py-2 rounded-full text-sm font-medium flex items-center"
+    >
+      <svg class="w-5 h-5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+      </svg>
+      {{ showHint ? 'Hide Hint' : 'Show Hint' }}
+    </button>
+  </div>
+  
+  <div *ngIf="showHint && currentWordHint" class="mb-4">
+    <div class="bg-yellow-100 dark:bg-yellow-900/20 border-l-4 border-yellow-500 text-yellow-700 dark:text-yellow-400 p-3 rounded">
+      <div class="font-medium">Hint:</div>
+      <div>{{ currentWordHint }}</div>
+    </div>
+  </div>
+
+  <!-- Loading indicator for general words -->
+  <div *ngIf="isLoadingWords" class="mb-4 text-center text-gray-600 dark:text-gray-400">
+    <div class="inline-block animate-spin rounded-full h-5 w-5 border-t-2 border-b-2 border-indigo-600 dark:border-indigo-400 mr-2"></div>
+    Loading more words...
+  </div>
+
   <!-- Achievements popup -->
   <div *ngIf="newAchievements.length > 0" class="mb-4">
     <div class="bg-yellow-100 dark:bg-yellow-900/20 border-l-4 border-yellow-500 text-yellow-700 dark:text-yellow-400 p-2 rounded">

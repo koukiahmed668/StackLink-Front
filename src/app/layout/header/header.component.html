@@ -21,6 +21,9 @@
 
       <!-- Auth buttons and Dark mode toggle -->
       <div class="hidden md:flex items-center space-x-4">
+        <!-- Notification center -->
+        <app-notification-center></app-notification-center>
+        
         <!-- Dark mode toggle -->
         <button 
           (click)="toggleDarkMode()"
@@ -44,6 +47,9 @@
 
       <!-- Mobile menu button and dark mode toggle -->
       <div class="flex items-center md:hidden space-x-2">
+        <!-- Notification center for mobile -->
+        <app-notification-center></app-notification-center>
+        
         <!-- Dark mode toggle for mobile -->
         <button 
           (click)="toggleDarkMode()"
